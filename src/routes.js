@@ -2,6 +2,7 @@ const Router = require('express');
 const multer = require('multer');
 const multerConfig = require('./config/multer')
 
+const treinadorController = require('./app/controllers/TreinadorController')
 const controller = require('./app/controllers/LegendaryController');
 const uploadFileController = require('./app/controllers/UploadFileController');
 
@@ -15,5 +16,10 @@ routes.post('/legendaries', controller.create);
 routes.put('/legendaries/:id', controller.update);
 routes.delete('/legendaries/:id', controller.delete);
 routes.post('/uploads', uploadFile.single('file'), uploadFileController.storeFile);
+
+routes.get('/treinadores', treinadorController.index);
+routes.post('/treinadores', treinadorController.create);
+routes.put('/treinadores/:id', treinadorController.update);
+routes.delete('/treinadores/:id', treinadorController.delete);
 
 module.exports = routes;
