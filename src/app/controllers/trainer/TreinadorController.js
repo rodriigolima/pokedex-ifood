@@ -8,35 +8,16 @@ const controller = {
         const listTreinadores = ListTreinadorService.listTreinadoresService();
         response.json(listTreinadores);
     },
+
     create: (request, response) => {
         const {
             nome,
-            idade, 
+            idade,
             cidadeNatal
         } = request.body;
 
-        if (!nome && !idade) {
-            return response.status(400).json({ "erro": "Você não passou o nome nem a idade!" })
-        }
-
-        if (!nome) {
-            return response.status(400).json({ "erro": "Você não passou o nome do treinador!" })
-        }
-
-        if (!idade) {
-            return response.status(400).json({ "erro": "Você não passou a idade do treinador!" })
-        }
-
-        if (nome.length < 5) {
-            return response.status(400).json({ "erro": "Nome precisa conter 5 ou mais characteres!" })
-        }
-
-        if (idade <= 15 || idade > 39) {
-            return response.status(400).json({ "erro": "A idade precisa ser maior ou igual a 15 anos e menor que 40 anos" })
-        }
-
-        if (cidadeNatal != "Pallet" && cidadeNatal != "Vermelion") {
-            return response.status(400).json({ "erro": "Serão aceitas somente as cidades Pallet e Vermelion" })
+        if (!nome || !idade) {
+            response.status(400).json({ erro: "O nome e a idade do treinador são obrigatórios" })
         }
 
         const treinador = CreateTreinadorService.createTreinador(
@@ -45,41 +26,56 @@ const controller = {
             cidadeNatal
         )
 
+        if (!treinador.nome) {
+            response.status(400).json({ erro: "O nome do treinador é obrigatório e deve ter pelo menos 5 caracteres" })
+        }
+
+        if (!treinador.idade) {
+            response.status(400).json({ erro: "A idade precisa ser maior ou igual a 15 anos e menor que 40 anos" })
+        }
+
+        if (!treinador.cidadeNatal) {
+            response.status(400).json({ erro: "Serão aceitas somente as cidades de Pallet e Vermelion" })
+        }
+
         return response.json(treinador);
     },
 
     update: (request, response) => {
         const { id } = request.params;
-        const { nome, idade, cidadeNatal } = request.body;
 
-        if (!nome && !idade) {
-            return response.status(400).json({ "erro": "Você não passou o nome nem a idade!" })
-        }
-        if (!nome) {
-            return response.status(400).json({ "erro": "Você não passou o nome do treinador!" })
-        }
-        if (!idade) {
-            return response.status(400).json({ "erro": "Você não passou a idade do treinador!" })
-        }
-        if (nome.length < 5) {
-            return response.status(400).json({ "erro": "Nome precisa conter 5 ou mais characteres!" })
-        }
-        if (idade <= 15 || idade > 39) {
-            return response.status(400).json({ "erro": "A idade precisa ser maior ou igual a 15 anos e menor que 40 anos" })
-        }
-        if (cidadeNatal != "Pallet" && cidadeNatal != "Vermelion") {
-            return response.status(400).json({ "erro": "Serão aceitas somente as cidades Pallet e Vermelion" })
+        const {
+            nome,
+            idade,
+            cidadeNatal
+        } = request.body;
+
+        if (!nome || !idade) {
+            response.status(400).json({ erro: "O nome e a idade do treinador são obrigatórios" })
         }
 
-        const updateTreinador = UpdateTreinadorService.update(
-            id,
+        const treinador = UpdateTreinadorService.update(
+            Number(id),
             nome,
             idade,
             cidadeNatal
         )
 
-        response.json(updateTreinador);
+        if (!treinador.nome) {
+            response.status(400).json({ erro: "O nome do treinador deve ter pelo menos 5 caracteres" })
+        }
+
+        if (!treinador.idade) {
+            response.status(400).json({ erro: "A idade precisa estar entre 14 e 40 anos" })
+        }
+
+        if (!treinador.cidadeNatal) {
+            response.status(400).json({ erro: "Serão aceitas somente as cidades de Pallet e Vermelion" })
+        }
+
+        response.json(treinador);
     },
+
     delete: (request, response) => {
         const { id } = request.params
 
@@ -87,7 +83,6 @@ const controller = {
 
         response.send(resultado)
     }
-
 }
 
 module.exports = controller;

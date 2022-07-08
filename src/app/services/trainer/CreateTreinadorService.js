@@ -1,20 +1,32 @@
 const TreinadorModel = require('../../models/trainer/TreinadorModel');
 const { v4 } = require('uuid');
 
-const CreateTreinadorService = {   
+const CreateTreinadorService = {
     createTreinador: (
         nome,
         idade,
         cidadeNatal
     ) => {
-        const newTreinador = new TreinadorModel(
+        const treinador = new TreinadorModel(
             v4(),
             nome,
             idade,
             cidadeNatal
         );
 
-        return newTreinador;
+        if (treinador.nome.length < 5) {
+            treinador.nome = false
+        }
+
+        if (treinador.idade < 15 || treinador.idade > 39) {
+            treinador.idade = false
+        }
+
+        if (treinador.cidadeNatal != "Pallet" && treinador.cidadeNatal != "Vermelion") {
+            treinador.cidadeNatal = false
+        }
+
+        return treinador;
     }
 }
 

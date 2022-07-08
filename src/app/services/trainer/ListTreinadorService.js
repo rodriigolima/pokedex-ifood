@@ -11,7 +11,7 @@ const ListTreinadorService = {
         const treinador2 = new TreinadorModel(
             2,
             "Rodrigo",
-            28,
+            14,
             "Recife"
         )
         const treinador3 = new TreinadorModel(
