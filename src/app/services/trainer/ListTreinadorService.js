@@ -1,4 +1,4 @@
-const TreinadorModel = require('../models/TreinadorModel');
+const TreinadorModel = require('../../models/trainer/TreinadorModel');
 
 const ListTreinadorService = {
     listTreinadoresService: () => {
