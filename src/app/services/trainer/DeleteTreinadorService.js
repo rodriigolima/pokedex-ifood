@@ -6,12 +6,18 @@ const DeleteTreinadorService = {
         const treinadorIndice = treinadores.findIndex(item => item.id === Number(id));
 
         if (treinadorIndice === -1) {
-            return { message: "Treinador não cadastrado" }
+            return { 
+                succeed: false,
+                message: "Treinador não cadastrado"
+            }
         }
 
         treinadores.splice(treinadorIndice, 1)
 
-        return { message: "Treinador deletado com sucesso" }
+        return { 
+            succeed: true,
+            message: "Treinador excluído com sucesso"
+        }
     }
 }
 

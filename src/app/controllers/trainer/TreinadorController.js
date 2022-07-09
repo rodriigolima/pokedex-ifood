@@ -74,6 +74,11 @@ const controller = {
         const resultado = DeleteTreinadorService.delete(id)
 
         // response.send(resultado.message)
+
+        if (!resultado.succeed) {
+            return response.status(400).json(resultado.message)
+        }
+        
         response.status(200).json(resultado.message)
     }
 }
