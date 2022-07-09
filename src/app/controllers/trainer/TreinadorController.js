@@ -5,8 +5,13 @@ const DeleteTreinadorService = require('../../services/trainer/DeleteTreinadorSe
 
 const controller = {
     index: (request, response) => {
-        const listTreinadores = ListTreinadorService.listTreinadoresService();
+        const listTreinadores = ListTreinadorService.listAll();
         response.json(listTreinadores);
+    },
+
+    validityList: (request, response) => {
+        const treinadores = ListTreinadorService.validacoes()
+        return response.json(treinadores)
     },
 
     create: (request, response) => {
@@ -17,28 +22,21 @@ const controller = {
         } = request.body;
 
         if (!nome || !idade) {
-            response.status(400).json({ erro: "O nome e a idade do treinador são obrigatórios" })
+            const notSucceed = {erro: "Os campos 'nome' e 'idade' são obrigatórios"}
+            return response.status(400).json(notSucceed.erro)
         }
 
-        const treinador = CreateTreinadorService.createTreinador(
+        const treinador = CreateTreinadorService.create(
             nome,
             idade,
             cidadeNatal
         )
 
-        if (!treinador.nome) {
-            response.status(400).json({ erro: "O nome do treinador é obrigatório e deve ter pelo menos 5 caracteres" })
+        if (!treinador.succeed) {
+            return response.status(400).json(treinador.message)
         }
-
-        if (!treinador.idade) {
-            response.status(400).json({ erro: "A idade precisa ser maior ou igual a 15 anos e menor que 40 anos" })
-        }
-
-        if (!treinador.cidadeNatal) {
-            response.status(400).json({ erro: "Serão aceitas somente as cidades de Pallet e Vermelion" })
-        }
-
-        return response.json(treinador);
+        
+        return response.status(200).json(treinador.message)
     },
 
     update: (request, response) => {
@@ -51,7 +49,9 @@ const controller = {
         } = request.body;
 
         if (!nome || !idade) {
-            response.status(400).json({ erro: "O nome e a idade do treinador são obrigatórios" })
+            const notSucceed = {erro: "Os campos 'nome' e 'idade' são obrigatórios"}
+
+            return response.status(400).json(notSucceed.erro)
         }
 
         const treinador = UpdateTreinadorService.update(
@@ -61,19 +61,11 @@ const controller = {
             cidadeNatal
         )
 
-        if (!treinador.nome) {
-            response.status(400).json({ erro: "O nome do treinador deve ter pelo menos 5 caracteres" })
+        if (!treinador.succed) {
+            return response.status(400).json(treinador.message)
         }
 
-        if (!treinador.idade) {
-            response.status(400).json({ erro: "A idade precisa estar entre 14 e 40 anos" })
-        }
-
-        if (!treinador.cidadeNatal) {
-            response.status(400).json({ erro: "Serão aceitas somente as cidades de Pallet e Vermelion" })
-        }
-
-        response.json(treinador);
+        return response.status(200).json(treinador.message);
     },
 
     delete: (request, response) => {
@@ -81,7 +73,8 @@ const controller = {
 
         const resultado = DeleteTreinadorService.delete(id)
 
-        response.send(resultado)
+        // response.send(resultado.message)
+        response.status(200).json(resultado.message)
     }
 }
 

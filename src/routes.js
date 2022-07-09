@@ -15,6 +15,7 @@ routes.get('/legendaries', legendaryController.ListData);
 routes.post('/legendaries', legendaryController.create);
 routes.put('/legendaries/:id', legendaryController.update);
 routes.delete('/legendaries/:id', legendaryController.delete);
+
 routes.post('/uploads', uploadFile.single('file'), uploadFileController.storeFile);
 
 routes.get('/treinadores', treinadorController.index);
