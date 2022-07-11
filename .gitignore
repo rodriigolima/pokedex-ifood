@@ -1,2 +1,4 @@
 /node_modules
 /atualizações.txt
+.vscode
+.gitignore
