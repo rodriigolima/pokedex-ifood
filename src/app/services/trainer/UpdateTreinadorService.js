@@ -1,13 +1,7 @@
 const ListTreinadorService = require("./ListTreinadorService");
 
 const UpdateTreinadorService = {
-    update: (
-        id,
-        nome,
-        idade,
-        cidadeNatal
-    ) => {
-
+    update: (id, nome, idade, cidadeNatal) => {
         if (nome.length < 5) {
             return {
                 succeed: false,
@@ -18,7 +12,7 @@ const UpdateTreinadorService = {
         if (idade < 15 || idade >= 40) {
             return {
                 succeed: false,
-                message: "A idade deve ser a partir de 15 até 40"
+                message: "A idade deve ser a partir de 15 e até 40"
             }
         }
 
@@ -29,23 +23,18 @@ const UpdateTreinadorService = {
             }
         }
 
-        const treinadores = ListTreinadorService.listTreinadoresService();
+        const treinadores = ListTreinadorService.listAll();
 
         const treinadorIndice = treinadores.findIndex(item => item.id === Number(id));
         
         if (treinadorIndice === -1) {
             return {
                 succeed: false,
-                message: "Treinador não cadastrado"
+                message: "ID informado não é referente a nenhum treinador cadastrado"
             }
         }
 
-        treinadores[treinadorIndice] = {
-            id,
-            nome,
-            idade,
-            cidadeNatal
-        };
+        treinadores[treinadorIndice] = { id, nome, idade, cidadeNatal };
 
         return {
             succed: true,

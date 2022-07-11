@@ -9,17 +9,8 @@ const controller = {
         response.json(listTreinadores);
     },
 
-    validityList: (request, response) => {
-        const treinadores = ListTreinadorService.validacoes()
-        return response.json(treinadores)
-    },
-
     create: (request, response) => {
-        const {
-            nome,
-            idade,
-            cidadeNatal
-        } = request.body;
+        const { nome, idade, cidadeNatal } = request.body;
 
         if (!nome || !idade) {
             const notSucceed = {erro: "Os campos 'nome' e 'idade' são obrigatórios"}
@@ -72,8 +63,6 @@ const controller = {
         const { id } = request.params
 
         const resultado = DeleteTreinadorService.delete(id)
-
-        // response.send(resultado.message)
 
         if (!resultado.succeed) {
             return response.status(400).json(resultado.message)

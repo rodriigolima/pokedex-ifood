@@ -8,7 +8,7 @@ const DeleteTreinadorService = {
         if (treinadorIndice === -1) {
             return { 
                 succeed: false,
-                message: "Treinador não cadastrado"
+                message: "ID informado não é referente a nenhum treinador cadastrado"
             }
         }
 
