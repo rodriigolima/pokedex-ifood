@@ -39,22 +39,12 @@ const controller = {
             cidadeNatal
         } = request.body;
 
-        if (!nome || !idade) {
-            const notSucceed = {erro: "Os campos 'nome' e 'idade' são obrigatórios"}
-
-            return response.status(400).json(notSucceed.erro)
-        }
-
         const treinador = UpdateTreinadorService.update(
             Number(id),
             nome,
             idade,
             cidadeNatal
         )
-
-        if (!treinador.succed) {
-            return response.status(400).json(treinador.message)
-        }
 
         return response.status(200).json(treinador.message);
     },

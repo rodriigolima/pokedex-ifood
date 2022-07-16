@@ -1,3 +1,5 @@
+const yup = require('yup')
+
 /* function legendaryValidator(req, res, next) {
     const { name } = req.body
 
@@ -8,24 +10,22 @@
     next()
 }
 */
-
-
 /* const { body } = require('express-validator')
 
 const legendaryValidatorList = [] */
 
-const yup = require('yup')
-
-function legendaryValidator(req, res, next) {
+async function legendaryValidator(req, res, next) {
     const schema = yup.object().shape({
         name: yup.string().required('Name é obrigatório'),
         type: yup.string().require('Type é obrigatório'),
         description: yup.string().require().min(10)
     })
 
-    if (schema.isValidSync(req.body)) {
-        return res.status(400).json({ error: 'Não foi possível cadastrar o legendary, verifique os campos obrigatórios' })
-    }
+    await schema.validate(request.body).catch(err => {
+        return response.status(400).json({
+            error: err.errors
+        })
+    })
 
     next()
 }
