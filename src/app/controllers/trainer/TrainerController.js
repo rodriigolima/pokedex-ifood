@@ -1,26 +1,26 @@
-const CreateTreinadorService = require('../../services/trainer/CreateTreinadorService');
-const ListTreinadorService = require('../../services/trainer/ListTreinadorService');
-const UpdateTreinadorService = require('../../services/trainer/UpdateTreinadorService');
-const DeleteTreinadorService = require('../../services/trainer/DeleteTreinadorService');
+const CreateTrainerService = require('../../services/trainer/CreateTrainerService');
+const ListTrainersService = require('../../services/trainer/ListTrainersService');
+const UpdateTrainerService = require('../../services/trainer/UpdateTrainerService');
+const DeleteTrainerService = require('../../services/trainer/DeleteTrainerService');
 
 const controller = {
     index: (request, response) => {
-        const listTreinadores = ListTreinadorService.listAll();
+        const listTreinadores = ListTrainersService.listAll();
         response.json(listTreinadores);
     },
 
     create: (request, response) => {
-        const { nome, idade, cidadeNatal } = request.body;
+        const { name, age, city } = request.body;
 
-        if (!nome || !idade) {
+        /* if (!name || !idade) {
             const notSucceed = {erro: "Os campos 'nome' e 'idade' são obrigatórios"}
             return response.status(400).json(notSucceed.erro)
-        }
+        } */
 
-        const treinador = CreateTreinadorService.create(
-            nome,
-            idade,
-            cidadeNatal
+        const treinador = CreateTrainerService.create(
+            name,
+            age,
+            city
         )
 
         if (!treinador.succeed) {
@@ -34,16 +34,16 @@ const controller = {
         const { id } = request.params;
 
         const {
-            nome,
-            idade,
-            cidadeNatal
+            name,
+            age,
+            city
         } = request.body;
 
-        const treinador = UpdateTreinadorService.update(
+        const treinador = UpdateTrainerService.update(
             Number(id),
-            nome,
-            idade,
-            cidadeNatal
+            name,
+            age,
+            city
         )
 
         return response.status(200).json(treinador.message);
@@ -52,12 +52,12 @@ const controller = {
     delete: (request, response) => {
         const { id } = request.params
 
-        const resultado = DeleteTreinadorService.delete(id)
+        const resultado = DeleteTrainerService.delete(id)
 
         if (!resultado.succeed) {
             return response.status(400).json(resultado.message)
         }
-        
+
         response.status(200).json(resultado.message)
     }
 }

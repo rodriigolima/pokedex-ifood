@@ -1,8 +1,8 @@
-const ListTreinadorService = require("./ListTreinadorService");
+const ListTrainersService = require("./ListTrainersService");
 
-const DeleteTreinadorService = {
+const DeleteTrainerService = {
     delete: (id) => {
-        const treinadores = ListTreinadorService.listAll();
+        const treinadores = ListTrainersService.listAll();
         const treinadorIndice = treinadores.findIndex(item => item.id === Number(id));
 
         if (treinadorIndice === -1) {
@@ -21,4 +21,4 @@ const DeleteTreinadorService = {
     }
 }
 
-module.exports = DeleteTreinadorService;
+module.exports = DeleteTrainerService;

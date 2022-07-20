@@ -2,11 +2,11 @@ const Router = require('express');
 const multer = require('multer');
 const multerConfig = require('./config/multer')
 
-const treinadorController = require('./app/controllers/trainer/TreinadorController')
+const trainerController = require('./app/controllers/trainer/TrainerController')
 const legendaryController = require('./app/controllers/legendary/LegendaryController');
 const uploadFileController = require('./app/controllers/util/UploadFileController');
 const LegendaryValidator = require('./middlewares/LegendaryValidator')
-const TreinadoresMiddlewares = require('./middlewares/TreinadoresMiddlewares')
+const TrainersMiddlewares = require('./middlewares/TrainersMiddlewares')
 
 const uploadFile = multer({ storage: multerConfig })
 
@@ -20,11 +20,9 @@ routes.delete('/legendaries/:id', legendaryController.delete);
 
 routes.post('/uploads', uploadFile.single('file'), uploadFileController.storeFile);
 
-routes.get('/treinadores', treinadorController.index);
-routes.post('/treinadores', TreinadoresMiddlewares, treinadorController.create);
-routes.put('/treinadores/:id', treinadorController.update);
-routes.delete('/treinadores/:id', treinadorController.delete);
-
-
+routes.get('/trainers', trainerController.index);
+routes.post('/trainers', TrainersMiddlewares, trainerController.create);
+routes.put('/trainers/:id', TrainersMiddlewares, trainerController.update);
+routes.delete('/trainers/:id', trainerController.delete);
 
 module.exports = routes;

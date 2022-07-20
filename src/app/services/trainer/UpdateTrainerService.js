@@ -1,29 +1,29 @@
-const ListTreinadorService = require("./ListTreinadorService");
+const ListTrainersService = require("./ListTrainersService");
 
-const UpdateTreinadorService = {
-    update: (id, nome, idade, cidadeNatal) => {
-        if (nome.length < 5) {
+const UpdateTrainerService = {
+    update: (id, name, age, city) => {
+        /* if (name.length < 5) {
             return {
                 succeed: false,
                 message: "O nome deve ter pelo menos 5 caracteres"
             }
         }
 
-        if (idade < 15 || idade >= 40) {
+        if (age < 15 || age >= 40) {
             return {
                 succeed: false,
                 message: "A idade deve ser a partir de 15 e até 40"
             }
         }
 
-        if (cidadeNatal !== "Pallet" && cidadeNatal !== "Vermelion") {
+        if (city !== "Pallet" && city !== "Vermelion") {
             return {
                 succeed: false,
                 message: "Serão aceitas somente as cidades de Pallet e Vermelion"
             }
-        }
+        } */
 
-        const treinadores = ListTreinadorService.listAll();
+        const treinadores = ListTrainersService.listAll();
 
         const treinadorIndice = treinadores.findIndex(item => item.id === Number(id));
         
@@ -34,7 +34,7 @@ const UpdateTreinadorService = {
             }
         }
 
-        treinadores[treinadorIndice] = { id, nome, idade, cidadeNatal };
+        treinadores[treinadorIndice] = { id, name, age, city };
 
         return {
             succed: true,
@@ -43,4 +43,4 @@ const UpdateTreinadorService = {
     }
 }
 
-module.exports = UpdateTreinadorService;
+module.exports = UpdateTrainerService;
