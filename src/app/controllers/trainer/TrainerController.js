@@ -17,17 +17,17 @@ const controller = {
             return response.status(400).json(notSucceed.erro)
         } */
 
-        const treinador = CreateTrainerService.create(
+        const trainer = CreateTrainerService.create(
             name,
             age,
             city
         )
 
         if (!treinador.succeed) {
-            return response.status(400).json(treinador.message)
+            return response.status(400).json(trainer.message)
         }
-        
-        return response.status(200).json(treinador.message)
+
+        return response.status(200).json(trainer.message)
     },
 
     update: (request, response) => {
@@ -39,26 +39,26 @@ const controller = {
             city
         } = request.body;
 
-        const treinador = UpdateTrainerService.update(
+        const trainer = UpdateTrainerService.update(
             Number(id),
             name,
             age,
             city
         )
 
-        return response.status(200).json(treinador.message);
+        return response.status(200).json(trainer.message);
     },
 
     delete: (request, response) => {
         const { id } = request.params
 
-        const resultado = DeleteTrainerService.delete(id)
+        const resulte = DeleteTrainerService.delete(id)
 
         if (!resultado.succeed) {
-            return response.status(400).json(resultado.message)
+            return response.status(400).json(resulte.message)
         }
 
-        response.status(200).json(resultado.message)
+        response.status(200).json(resulte.message)
     }
 }
 

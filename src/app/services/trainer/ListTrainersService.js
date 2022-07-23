@@ -5,6 +5,8 @@ const ListTrainersService = {
         const treinador1 = new TrainerModel(
             1,
             "Jack",
+            "jackson@digitalhouse.com",
+            "123456789",
             26,
             "Vermelion"
         )
@@ -12,6 +14,8 @@ const ListTrainersService = {
         const treinador2 = new TrainerModel(
             2,
             "",
+            "rodrigo@digitalhouse.com",
+            "123456789",
             "",
             "Recife"
         )
@@ -19,6 +23,8 @@ const ListTrainersService = {
         const treinador3 = new TrainerModel(
             3,
             "Daniel",
+            "daniel@digitalhouse.com",
+            "123456789",
             32,
             "Vermelion"
         )
@@ -26,6 +32,8 @@ const ListTrainersService = {
         const treinador4 = new TrainerModel(
             4,
             "Acácio",
+            "acacio@digitalhouse.com",
+            "123456789",
             30,
             "Pallet"
         )
@@ -33,19 +41,29 @@ const ListTrainersService = {
         const treinador5 = new TrainerModel(
             5,
             "Ubirajara",
+            "ubirajara@digitalhouse.com",
+            "123456789",
             "25",
             "Pallet"
         )
-        
+
         const treinador6 = new TrainerModel(
             6,
-            "Luís",
+            "Luiz",
+            "luiz@digitalhouse.com",
+            "123456789",
             25,
             "Pallet"
         )
-        
+
         return [treinador1, treinador2, treinador3, treinador4, treinador5, treinador6]
     },
+
+    findTrainer: (email, password) => {
+        const trainer = ListTrainersService.listAll().find(trainer => trainer.email === email && trainer.password === password)
+
+        return trainer
+    }
 
     /* validacoes: () => {
         const treinadores = ListTreinadorService.listAll()
